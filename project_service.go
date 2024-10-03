@@ -1,6 +1,9 @@
 package freelancer
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+)
 
 type ProjectService struct {
 	client                       *Client
@@ -67,6 +70,22 @@ type ProjectService struct {
 	limit                        int
 	offset                       int
 	compact                      bool
+}
+
+func (s *ProjectService) Do(ctx context.Context) (*http.Response, error) {
+	r := &request{
+		method:   http.MethodGet,
+		endpoint: "/projects/0.1/projects/",
+	}
+	m := params{}
+	if s.attachmentDetails != nil {
+
+	}
+	data, err := s.client.callAPI(ctx, r)
+	if err != nil {
+		return nil, err
+	}
+	return nil, err
 }
 
 func (s *ProjectService) GetProjects(id int) (*Project, *http.Response, error) {

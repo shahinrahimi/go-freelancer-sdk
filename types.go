@@ -1,5 +1,7 @@
 package freelancer
 
+import "fmt"
+
 type ResultProjects struct {
 	Projects   []Project `json:"projects"`
 	TotalCount int       `json:"total_count"`
@@ -188,4 +190,21 @@ type Project struct {
 	FrontendStatus string   `json:"frontend_project_status"`
 	Location       Location `json:"location"`
 	Local          bool     `json:"local"`
+}
+
+type APIError struct {
+	Code     int64  `json:"code"`
+	Message  string `json:"message"`
+	Response []byte `json:"-"`
+}
+
+func (e APIError) Error() string {
+	if e.IsValid() {
+		return fmt.Sprintf("<APIError> code: %d, message: %s", e.Code, e.Message)
+	}
+	return fmt.Sprintf("<APIError> response: %s", string(e.Response))
+}
+
+func (e APIError) IsValid() bool {
+	return e.Code != 0 || e.Message != ""
 }

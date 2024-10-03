@@ -1,6 +1,10 @@
 package freelancer
 
-import "net/url"
+import (
+	"io"
+	"net/http"
+	"net/url"
+)
 
 type params map[string]interface{}
 
@@ -9,4 +13,7 @@ type request struct {
 	endpoint string
 	query    url.Values
 	form     url.Values
+	header   http.Header
+	body     io.Reader
+	fullURL  string
 }
