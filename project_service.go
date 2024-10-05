@@ -2,6 +2,7 @@ package freelancer
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 )
 
@@ -72,24 +73,43 @@ type ProjectService struct {
 	compact                      bool
 }
 
-func (s *ProjectService) Do(ctx context.Context) (*http.Response, error) {
+func (s *ProjectService) Do(ctx context.Context) (*ResponseProjects, error) {
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "/projects/0.1/projects/",
 	}
-	m := params{}
-	if s.attachmentDetails != nil {
-
+	if s.projects != nil {
+		r.addParam("projects", s.projects)
+	}
+	if s.owners != nil {
+		r.addParam("owners", s.owners)
+	}
+	if s.bidders != nil {
+		r.addParam("bidders", s.bidders)
+	}
+	if s.seoUrls != nil {
+		r.addParam("seo_urls", s.seoUrls)
+	}
+	if s.fromTime != 0 {
+		r.addParam("from_time", s.fromTime)
+	}
+	if s.toTime != 0 {
+		r.addParam("to_time", s.toTime)
+	}
+	if s.frontendProjectStatuses != nil {
+		r.addParam("frontend_project_statuses", s.frontendProjectStatuses)
 	}
 	data, err := s.client.callAPI(ctx, r)
 	if err != nil {
 		return nil, err
 	}
-	return nil, err
-}
+	resp := new(ResponseProjects)
+	err = json.Unmarshal(data, resp)
+	if err != nil {
+		return nil, err
+	}
 
-func (s *ProjectService) GetProjects(id int) (*Project, *http.Response, error) {
-	return nil, nil, nil
+	return resp, nil
 }
 
 func (s *ProjectService) Projects(projects []int64) *ProjectService {

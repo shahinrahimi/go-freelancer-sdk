@@ -1,7 +1,6 @@
 package freelancer
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -58,13 +57,24 @@ func (c *Client) debug(format string, v ...interface{}) {
 }
 
 func (c *Client) parseRequest(r *request) (err error) {
+
+	err = r.validate()
+	if err != nil {
+		return err
+	}
+
 	fullURL := fmt.Sprintf("%s%s", c.baseURL, r.endpoint)
+	queryString := r.query.Encode()
 	header := http.Header{}
-	body := &bytes.Buffer{}
+	header.Add("Authorization", fmt.Sprintf("Bearer %s", c.apiToken))
+	header.Add("Content-Type", "application/json")
+	if queryString != "" {
+		fullURL = fmt.Sprintf("%s?%s", fullURL, queryString)
+	}
+	c.debug("full url: %s\n", fullURL)
 
 	r.fullURL = fullURL
 	r.header = header
-	r.body = body
 	return nil
 }
 
