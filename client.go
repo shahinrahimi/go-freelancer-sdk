@@ -107,7 +107,7 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 	}()
 
 	if res.StatusCode >= http.StatusBadRequest {
-		apiErr := new(APIError)
+		apiErr := new(APIError2)
 		e := json.Unmarshal(data, apiErr)
 		if e != nil {
 			c.debug("failed to unmarshal json: %s\n", e)
