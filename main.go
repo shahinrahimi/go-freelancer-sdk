@@ -1,4 +1,4 @@
-package freelancer
+package main
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/shahinrahimi/go-freelancer-sdk/v1"
 )
 
 func main() {
@@ -19,7 +20,8 @@ func main() {
 	if token == "" {
 		panic("FREELANCER_ACCESS_TOKEN is not set")
 	}
-	c := NewClient(token)
+	c := freelancer.NewClient(token)
+	c.Debug = true
 	projectListService := c.NewProjectService()
 	res, err := projectListService.Do(context.Background())
 	if err != nil {
