@@ -21,13 +21,24 @@ func main() {
 		panic("FREELANCER_ACCESS_TOKEN is not set")
 	}
 	c := freelancer.NewClient(token)
+	c.SetBaseUrl(freelancer.BaseAPIMainURL)
 	c.Debug = true
-	projectListService := c.NewProjectService()
+
+	projectListService := c.NewProjectActiveService()
 	res, err := projectListService.Do(context.Background())
 	if err != nil {
-		log.Printf("Error: %s", err)
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+	}
+	for pr, p := range res.Result.Projects {
+		log.Printf("Project #%d: %s", pr, p.Title)
+		log.Printf("Project #%d: %s", pr, p.SeoURL)
+		log.Printf("Project #%d: %s", pr, p.Description)
 	}
 
-	log.Printf("Response: %s", res)
+	//log.Printf("Response: %s", res)
 
 }

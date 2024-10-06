@@ -19,18 +19,18 @@ const (
 	ProjectFrontendStatusWorkInProgress ProjectFrontendStatus = "work_in_progress"
 )
 
-var (
+const (
 	BaseAPIMainURL    = "https://www.freelancer.com/api/"
 	BaseAPISandBoxURL = "https://api-sandbox.freelancer.com/"
 )
 
 var UseSandBox = false
 
-func getBaseURL() string {
-	if UseSandBox {
-		return BaseAPISandBoxURL
-	}
-	return BaseAPIMainURL
+func (c *Client) getBaseUrl() string {
+	return c.baseURL
+}
+func (c *Client) SetBaseUrl(url string) {
+	c.baseURL = url
 }
 
 type Client struct {
@@ -39,6 +39,7 @@ type Client struct {
 	apiToken   string
 	baseURL    string
 	Debug      bool
+	UseSandBox bool
 }
 
 func NewClient(apiToken string) *Client {
@@ -46,7 +47,7 @@ func NewClient(apiToken string) *Client {
 		logger:     log.Default(),
 		HTTPClient: &http.Client{},
 		apiToken:   apiToken,
-		baseURL:    getBaseURL(),
+		baseURL:    BaseAPISandBoxURL,
 	}
 }
 
@@ -79,22 +80,29 @@ func (c *Client) parseRequest(r *request) (err error) {
 }
 
 func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err error) {
+	c.debug("calling api endpoint: %s\n", r.fullURL)
 	err = c.parseRequest(r)
 	if err != nil {
+		c.debug("failed to parse request: %s\n", err)
 		return []byte{}, err
 	}
 	req, err := http.NewRequest(r.method, r.fullURL, r.body)
 	if err != nil {
+		c.debug("failed to create http request: %s\n", err)
 		return []byte{}, err
 	}
 	req = req.WithContext(ctx)
 	req.Header = r.header
+	c.debug("http request: %s\n", req)
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
+		c.debug("failed to send http request: %s\n", err)
 		return []byte{}, err
 	}
+	c.debug("http response: %s\n", res.Status)
 	data, err = io.ReadAll(res.Body)
 	if err != nil {
+		c.debug("failed to read http response body: %s\n", err)
 		return []byte{}, err
 	}
 	defer func() {
@@ -107,6 +115,7 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 	}()
 
 	if res.StatusCode >= http.StatusBadRequest {
+		c.debug("received bad status code: %s\n", res.Status)
 		apiErr := new(APIError2)
 		e := json.Unmarshal(data, apiErr)
 		if e != nil {
@@ -119,9 +128,7 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 	}
 
 	return data, nil
-
 }
-
 func (c *Client) NewProjectService() *ProjectService {
 	return &ProjectService{client: c}
 }

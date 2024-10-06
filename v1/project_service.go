@@ -73,10 +73,7 @@ type ProjectService struct {
 	compact                      bool
 }
 
-/*************  ✨ Codeium Command 🌟  *************/
 func (s *ProjectService) Do(ctx context.Context) (*ResponseProjects, error) {
-	s.client.debug("ProjectService.Do: called with projects=%v, owners=%v, bidders=%v, seoUrls=%v, fromTime=%v, toTime=%v", s.projects, s.owners, s.bidders, s.seoUrls, s.fromTime, s.toTime)
-
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "projects/0.1/projects/",
@@ -102,24 +99,18 @@ func (s *ProjectService) Do(ctx context.Context) (*ResponseProjects, error) {
 	if s.frontendProjectStatuses != nil {
 		r.addParam("frontend_project_statuses", s.frontendProjectStatuses)
 	}
-	s.client.debug("ProjectService.Do: calling api with url=%s", r.fullURL)
 	data, err := s.client.callAPI(ctx, r)
 	if err != nil {
-		s.client.debug("ProjectService.Do: error calling api: %v", err)
 		return nil, err
 	}
 	resp := new(ResponseProjects)
-	s.client.debug("ProjectService.Do: unmarshaling response")
 	err = json.Unmarshal(data, resp)
 	if err != nil {
-		s.client.debug("ProjectService.Do: error unmarshaling response: %v", err)
 		return nil, err
 	}
 
 	return resp, nil
 }
-
-/******  8dc58996-4d96-499a-9a6c-0cccdcc31874  *******/
 func (s *ProjectService) Projects(projects []int64) *ProjectService {
 	s.projects = projects
 	return s

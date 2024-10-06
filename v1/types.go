@@ -2,6 +2,39 @@ package freelancer
 
 import "fmt"
 
+type ProjectType string
+type ProjectUpgradeType string
+type ContestUpgradeType string
+type SortFieldsType string
+
+const (
+	ProjectTypeFixed  ProjectType = "fixed"
+	ProjectTypeHourly ProjectType = "hourly"
+
+	ProjectUpgradeTypeFeatured   ProjectUpgradeType = "featured"
+	ProjectUpgradeTypeSealed     ProjectUpgradeType = "sealed"
+	ProjectUpgradeTypeNonpublic  ProjectUpgradeType = "nonpublic"
+	ProjectUpgradeTypeFulltime   ProjectUpgradeType = "fulltime"
+	ProjectUpgradeTypeUrgent     ProjectUpgradeType = "urgent"
+	ProjectUpgradeTypeQualified  ProjectUpgradeType = "qualified"
+	ProjectUpgradeTypeNDA        ProjectUpgradeType = "NDA"
+	ProjectUpgradeTypeAssisted   ProjectUpgradeType = "assisted"
+	ProjectUpgradeTypePFOnly     ProjectUpgradeType = "pf_only"
+	ProjectUpgradeTypeIpContract ProjectUpgradeType = "ip_contract"
+	ProjectUpgradeTypeNonCompete ProjectUpgradeType = "non_compete"
+
+	ContestUpgradeTypeFeatured   ContestUpgradeType = "featured"
+	ContestUpgradeTypeSealed     ContestUpgradeType = "sealed"
+	ContestUpgradeTypeNonpublic  ContestUpgradeType = "nonpublic"
+	ContestUpgradeTypeHighlight  ContestUpgradeType = "highlight"
+	ContestUpgradeTypeGuaranteed ContestUpgradeType = "guaranteed"
+
+	SortFieldsTypeTimeUpdated SortFieldsType = "time_updated"
+	SortFieldsTypeBidCount    SortFieldsType = "bid_count"
+	SortFieldsTypeBidEndDate  SortFieldsType = "bid_enddate"
+	SortFieldsTypeBidAvgUsd   SortFieldsType = "bid_avg_usd"
+)
+
 type ResultProjects struct {
 	Projects   []Project `json:"projects"`
 	TotalCount int       `json:"total_count"`
