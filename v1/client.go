@@ -24,9 +24,7 @@ const (
 	BaseAPISandBoxURL = "https://api-sandbox.freelancer.com/"
 )
 
-var UseSandBox = false
-
-func (c *Client) getBaseUrl() string {
+func (c *Client) GetBaseUrl() string {
 	return c.baseURL
 }
 func (c *Client) SetBaseUrl(url string) {
@@ -39,7 +37,6 @@ type Client struct {
 	apiToken   string
 	baseURL    string
 	Debug      bool
-	UseSandBox bool
 }
 
 func NewClient(apiToken string) *Client {
@@ -47,7 +44,7 @@ func NewClient(apiToken string) *Client {
 		logger:     log.Default(),
 		HTTPClient: &http.Client{},
 		apiToken:   apiToken,
-		baseURL:    BaseAPISandBoxURL,
+		baseURL:    BaseAPIMainURL,
 	}
 }
 

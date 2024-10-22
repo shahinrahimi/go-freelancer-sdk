@@ -24,8 +24,11 @@ func main() {
 	c.SetBaseUrl(freelancer.BaseAPIMainURL)
 	c.Debug = true
 
-	projectListService := c.NewProjectActiveService()
-	res, err := projectListService.Do(context.Background())
+	pas := c.NewProjectActiveService()
+	pas.SetQuery("python json")
+	pas.SetProjectTypes([]freelancer.ProjectType{freelancer.ProjectTypeFixed})
+	pas.SetProjectUpgrades([]freelancer.ProjectUpgradeType{freelancer.ProjectUpgradeTypeSealed})
+	res, err := pas.Do(context.Background())
 	if err != nil {
 		if handledError, ok := err.(*freelancer.APIError2); ok {
 			log.Printf("Handled error: %s", handledError)
