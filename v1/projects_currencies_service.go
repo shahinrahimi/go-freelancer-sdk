@@ -6,14 +6,14 @@ import (
 	"net/http"
 )
 
-type CurrencyService struct {
+type ProjectsCurrenciesService struct {
 	client                    *Client
 	currencyCodes             []string
 	currencyIDs               []int
 	includeExternalCurrencies bool
 }
 
-func (s *CurrencyService) Do(ctx context.Context) (*ResponseCurrencies, error) {
+func (s *ProjectsCurrenciesService) Do(ctx context.Context) (*ResponseCurrencies, error) {
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "projects/0.1/currencies/",
@@ -39,20 +39,17 @@ func (s *CurrencyService) Do(ctx context.Context) (*ResponseCurrencies, error) {
 	return res, nil
 }
 
-func (c *Client) NewCurrencyService() *CurrencyService {
-	return &CurrencyService{client: c}
-}
-func (s *CurrencyService) SetCurrencyCodes(codes []string) *CurrencyService {
+func (s *ProjectsCurrenciesService) SetCurrencyCodes(codes []string) *ProjectsCurrenciesService {
 	s.currencyCodes = codes
 	return s
 }
 
-func (s *CurrencyService) SetCurrencyIDs(ids []int) *CurrencyService {
+func (s *ProjectsCurrenciesService) SetCurrencyIDs(ids []int) *ProjectsCurrenciesService {
 	s.currencyIDs = ids
 	return s
 }
 
-func (s *CurrencyService) SetIncludeExternalCurrencies(include bool) *CurrencyService {
+func (s *ProjectsCurrenciesService) SetIncludeExternalCurrencies(include bool) *ProjectsCurrenciesService {
 	s.includeExternalCurrencies = include
 	return s
 }

@@ -41,8 +41,29 @@ type ResponseCurrencies struct {
 	Result    ResultCurrencies `json:"result"`
 }
 
+type ResponseCategories struct {
+	Status    string           `json:"status"`
+	RequestID string           `json:"request_id,omitempty"` // Optional
+	Result    ResultCategories `json:"result"`
+}
+
 type ResultCurrencies struct {
 	Currencies []Currency `json:"currencies"`
+}
+
+type ResultCategories struct {
+	Jobs       *Jobs      `json:"jobs,omitempty"` // Jobs can be an object or null, represented by a pointer
+	Categories []Category `json:"categories"`
+}
+
+type Jobs struct {
+	// Define any properties of "jobs" here if needed.
+	// Leaving it empty as per the schema.
+}
+
+type Category struct {
+	ID   int    `json:"id"`             // "number" is represented as float64 in Go
+	Name string `json:"name,omitempty"` // Optional
 }
 
 type ResultProjects struct {

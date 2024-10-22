@@ -90,7 +90,7 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 	}
 	req = req.WithContext(ctx)
 	req.Header = r.header
-	c.debug("http request: %s\n", req)
+	c.debug(fmt.Sprintf("http request: %v\n", req))
 	res, err := c.HTTPClient.Do(req)
 	if err != nil {
 		c.debug("failed to send http request: %s\n", err)
@@ -126,10 +126,18 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 
 	return data, nil
 }
-func (c *Client) NewProjectService() *ProjectService {
-	return &ProjectService{client: c}
+func (c *Client) NewProjectsActiveService() *ProjectsActiveService {
+	return &ProjectsActiveService{client: c}
 }
 
-func (c *Client) NewUserService() *UserService {
-	return &UserService{client: c}
+func (c *Client) NewProjectsCategoriesService() *ProjectsCategoriesService {
+	return &ProjectsCategoriesService{client: c}
+}
+
+func (c *Client) NewProjectsCurrenciesService() *ProjectsCurrenciesService {
+	return &ProjectsCurrenciesService{client: c}
+}
+
+func (c *Client) NewProjectsProjectsService() *ProjectsProjectsService {
+	return &ProjectsProjectsService{client: c}
 }
