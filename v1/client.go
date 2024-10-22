@@ -141,3 +141,7 @@ func (c *Client) NewProjectsCurrenciesService() *ProjectsCurrenciesService {
 func (c *Client) NewProjectsProjectsService() *ProjectsProjectsService {
 	return &ProjectsProjectsService{client: c}
 }
+
+func (c *Client) NewProjectsBudgetsService() *ProjectsBudgetsService {
+	return &ProjectsBudgetsService{client: c}
+}

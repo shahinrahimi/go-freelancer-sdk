@@ -50,10 +50,18 @@ type ResponseCategories struct {
 type ResultCurrencies struct {
 	Currencies []Currency `json:"currencies"`
 }
-
+type ResponseBudgets struct {
+	Status    string        `json:"status"`
+	RequestID string        `json:"request_id,omitempty"` // Optional
+	Result    ResultBudgets `json:"result"`
+}
 type ResultCategories struct {
 	Jobs       *Jobs      `json:"jobs,omitempty"` // Jobs can be an object or null, represented by a pointer
 	Categories []Category `json:"categories"`
+}
+
+type ResultBudgets struct {
+	Budgets []Budget `json:"budgets"`
 }
 
 type Jobs struct {
