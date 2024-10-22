@@ -35,6 +35,16 @@ const (
 	SortFieldsTypeBidAvgUsd   SortFieldsType = "bid_avg_usd"
 )
 
+type ResponseCurrencies struct {
+	Status    string           `json:"status"`
+	RequestID string           `json:"request_id,omitempty"` // Optional
+	Result    ResultCurrencies `json:"result"`
+}
+
+type ResultCurrencies struct {
+	Currencies []Currency `json:"currencies"`
+}
+
 type ResultProjects struct {
 	Projects   []Project `json:"projects"`
 	TotalCount int       `json:"total_count"`
