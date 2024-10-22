@@ -145,3 +145,15 @@ func (c *Client) NewProjectsProjectsService() *ProjectsProjectsService {
 func (c *Client) NewProjectsBudgetsService() *ProjectsBudgetsService {
 	return &ProjectsBudgetsService{client: c}
 }
+
+func (c *Client) NewCommonTimezonesService() *CommonTimezonesService {
+	return &CommonTimezonesService{client: c}
+}
+
+func (c *Client) NewCommonCountriesService() *CommonCountriesService {
+	return &CommonCountriesService{client: c}
+}
+
+func (c *Client) NewUsersUsersService() *UsersUsersService {
+	return &UsersUsersService{client: c}
+}

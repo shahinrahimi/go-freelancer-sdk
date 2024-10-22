@@ -24,7 +24,7 @@ func main() {
 	c.SetBaseUrl(freelancer.BaseAPIMainURL)
 	c.Debug = true
 
-	pas := c.NewProjectActiveService()
+	pas := c.NewProjectsActiveService()
 	pas.SetQuery("python json")
 	pas.SetProjectTypes([]freelancer.ProjectType{freelancer.ProjectTypeFixed})
 	pas.SetProjectUpgrades([]freelancer.ProjectUpgradeType{freelancer.ProjectUpgradeTypeSealed})

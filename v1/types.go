@@ -47,6 +47,41 @@ type ResponseCategories struct {
 	Result    ResultCategories `json:"result"`
 }
 
+type ResponseTimezones struct {
+	Status    string          `json:"status"`
+	RequestID string          `json:"request_id,omitempty"` // Optional
+	Result    ResultTimezones `json:"result"`
+}
+
+type ResultTimezones struct {
+	ID       int    `json:"id"`                 // "number" represented as float64
+	Country  string `json:"country,omitempty"`  // Optional
+	Timezone string `json:"timezone,omitempty"` // Optional
+	Offset   int    `json:"offset,omitempty"`   // Optional, "Decimal"
+}
+
+type ResponseCountries struct {
+	Status    string          `json:"status"`
+	RequestID string          `json:"request_id,omitempty"` // Optional
+	Result    ResultCountries `json:"result"`
+}
+
+type ResultCountries struct {
+	Countries []Country `json:"countries"`
+}
+
+type Country struct {
+	Name         string  `json:"name,omitempty"`          // Optional
+	Code         string  `json:"code,omitempty"`          // Optional
+	ISO3         string  `json:"iso3,omitempty"`          // Optional
+	PhoneCode    float64 `json:"phone_code,omitempty"`    // Optional, "Decimal"
+	Demonym      string  `json:"demonym,omitempty"`       // Optional
+	Person       string  `json:"person,omitempty"`        // Optional
+	SEOURL       string  `json:"seo_url,omitempty"`       // Optional
+	Sanction     bool    `json:"sanction,omitempty"`      // Optional, Boolean
+	LanguageCode string  `json:"language_code,omitempty"` // Optional
+	LanguageID   float64 `json:"language_id,omitempty"`   // Optional
+}
 type ResultCurrencies struct {
 	Currencies []Currency `json:"currencies"`
 }
