@@ -154,6 +154,6 @@ func (c *Client) NewListCountriesService() *ListCountriesService {
 	return &ListCountriesService{client: c}
 }
 
-func (c *Client) NewUsersUsersService() *ListUsersService {
+func (c *Client) NewListUsersService() *ListUsersService {
 	return &ListUsersService{client: c}
 }
