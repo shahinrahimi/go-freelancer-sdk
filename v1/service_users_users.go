@@ -49,7 +49,7 @@ type ListUsersService struct {
 func (s *ListUsersService) Do(ctx context.Context) (*ListUsersResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "/user/0.1/users",
+		endpoint: "/users0.1/users",
 	}
 	if len(s.users) > 0 {
 		r.setParam("users", s.users)
