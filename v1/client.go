@@ -126,34 +126,34 @@ func (c *Client) callAPI(ctx context.Context, r *request) (data []byte, err erro
 
 	return data, nil
 }
-func (c *Client) NewProjectsActiveService() *ProjectsActiveService {
-	return &ProjectsActiveService{client: c}
+func (c *Client) NewListActiveProjectsService() *ListActiveProjectsService {
+	return &ListActiveProjectsService{client: c}
 }
 
-func (c *Client) NewProjectsCategoriesService() *ProjectsCategoriesService {
-	return &ProjectsCategoriesService{client: c}
+func (c *Client) NewListCategoriesService() *ListCategoriesService {
+	return &ListCategoriesService{client: c}
 }
 
-func (c *Client) NewProjectsCurrenciesService() *ProjectsCurrenciesService {
-	return &ProjectsCurrenciesService{client: c}
+func (c *Client) NewListCurrenciesService() *ListCurrenciesService {
+	return &ListCurrenciesService{client: c}
 }
 
-func (c *Client) NewProjectsProjectsService() *ProjectsProjectsService {
-	return &ProjectsProjectsService{client: c}
+func (c *Client) NewListProjectsService() *ListProjectsService {
+	return &ListProjectsService{client: c}
 }
 
-func (c *Client) NewProjectsBudgetsService() *ProjectsBudgetsService {
-	return &ProjectsBudgetsService{client: c}
+func (c *Client) NewListBudgetsService() *ListBudgetsService {
+	return &ListBudgetsService{client: c}
 }
 
-func (c *Client) NewCommonTimezonesService() *CommonTimezonesService {
-	return &CommonTimezonesService{client: c}
+func (c *Client) NewListTimezonesService() *ListTimezonesService {
+	return &ListTimezonesService{client: c}
 }
 
-func (c *Client) NewCommonCountriesService() *CommonCountriesService {
-	return &CommonCountriesService{client: c}
+func (c *Client) NewListCountriesService() *ListCountriesService {
+	return &ListCountriesService{client: c}
 }
 
-func (c *Client) NewUsersUsersService() *UsersUsersService {
-	return &UsersUsersService{client: c}
+func (c *Client) NewUsersUsersService() *ListUsersService {
+	return &ListUsersService{client: c}
 }

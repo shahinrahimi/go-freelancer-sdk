@@ -6,14 +6,25 @@ import (
 	"net/http"
 )
 
-type ProjectsCurrenciesService struct {
+type ListCurrenciesService struct {
 	client                    *Client
 	currencyCodes             []string
 	currencyIDs               []int
 	includeExternalCurrencies bool
 }
 
-func (s *ProjectsCurrenciesService) Do(ctx context.Context) (*ResponseCurrencies, error) {
+type ListCurrenciesResponse struct {
+	Status    string           `json:"status"`
+	RequestID string           `json:"request_id,omitempty"` // Optional
+	Result    CurrenciesResult `json:"result"`
+}
+
+type CurrenciesResult struct {
+	Currencies []Currency `json:"currencies"`
+}
+
+// Do perform GET request on endpoint "projects/0.1/currencies/"
+func (s *ListCurrenciesService) Do(ctx context.Context) (*ListCurrenciesResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "projects/0.1/currencies/",
@@ -31,7 +42,7 @@ func (s *ProjectsCurrenciesService) Do(ctx context.Context) (*ResponseCurrencies
 	if err != nil {
 		return nil, err
 	}
-	res := &ResponseCurrencies{}
+	res := &ListCurrenciesResponse{}
 	err = json.Unmarshal(data, res)
 	if err != nil {
 		return nil, err
@@ -39,17 +50,17 @@ func (s *ProjectsCurrenciesService) Do(ctx context.Context) (*ResponseCurrencies
 	return res, nil
 }
 
-func (s *ProjectsCurrenciesService) SetCurrencyCodes(codes []string) *ProjectsCurrenciesService {
+func (s *ListCurrenciesService) SetCurrencyCodes(codes []string) *ListCurrenciesService {
 	s.currencyCodes = codes
 	return s
 }
 
-func (s *ProjectsCurrenciesService) SetCurrencyIDs(ids []int) *ProjectsCurrenciesService {
+func (s *ListCurrenciesService) SetCurrencyIDs(ids []int) *ListCurrenciesService {
 	s.currencyIDs = ids
 	return s
 }
 
-func (s *ProjectsCurrenciesService) SetIncludeExternalCurrencies(include bool) *ProjectsCurrenciesService {
+func (s *ListCurrenciesService) SetIncludeExternalCurrencies(include bool) *ListCurrenciesService {
 	s.includeExternalCurrencies = include
 	return s
 }

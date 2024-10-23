@@ -35,39 +35,23 @@ const (
 	SortFieldsTypeBidAvgUsd   SortFieldsType = "bid_avg_usd"
 )
 
-type ResponseCurrencies struct {
-	Status    string           `json:"status"`
-	RequestID string           `json:"request_id,omitempty"` // Optional
-	Result    ResultCurrencies `json:"result"`
+type ListProjectsResponse struct {
+	Status string         `json:"status"`
+	Result ProjectsResult `json:"result"`
 }
 
-type ResponseCategories struct {
-	Status    string           `json:"status"`
-	RequestID string           `json:"request_id,omitempty"` // Optional
-	Result    ResultCategories `json:"result"`
+type ProjectsResult struct {
+	Projects   []Project `json:"projects"`
+	TotalCount int       `json:"total_count"`
 }
 
-type ResponseTimezones struct {
-	Status    string          `json:"status"`
-	RequestID string          `json:"request_id,omitempty"` // Optional
-	Result    ResultTimezones `json:"result"`
+type ListUsersResponse struct {
+	Status string      `json:"status"`
+	Result UsersResult `json:"result"`
 }
 
-type ResultTimezones struct {
-	ID       int    `json:"id"`                 // "number" represented as float64
-	Country  string `json:"country,omitempty"`  // Optional
-	Timezone string `json:"timezone,omitempty"` // Optional
-	Offset   int    `json:"offset,omitempty"`   // Optional, "Decimal"
-}
-
-type ResponseCountries struct {
-	Status    string          `json:"status"`
-	RequestID string          `json:"request_id,omitempty"` // Optional
-	Result    ResultCountries `json:"result"`
-}
-
-type ResultCountries struct {
-	Countries []Country `json:"countries"`
+type UsersResult struct {
+	Users map[string]User `json:"users"`
 }
 
 type Country struct {
@@ -82,22 +66,6 @@ type Country struct {
 	LanguageCode string  `json:"language_code,omitempty"` // Optional
 	LanguageID   float64 `json:"language_id,omitempty"`   // Optional
 }
-type ResultCurrencies struct {
-	Currencies []Currency `json:"currencies"`
-}
-type ResponseBudgets struct {
-	Status    string        `json:"status"`
-	RequestID string        `json:"request_id,omitempty"` // Optional
-	Result    ResultBudgets `json:"result"`
-}
-type ResultCategories struct {
-	Jobs       *Jobs      `json:"jobs,omitempty"` // Jobs can be an object or null, represented by a pointer
-	Categories []Category `json:"categories"`
-}
-
-type ResultBudgets struct {
-	Budgets []Budget `json:"budgets"`
-}
 
 type Jobs struct {
 	// Define any properties of "jobs" here if needed.
@@ -109,22 +77,6 @@ type Category struct {
 	Name string `json:"name,omitempty"` // Optional
 }
 
-type ResultProjects struct {
-	Projects   []Project `json:"projects"`
-	TotalCount int       `json:"total_count"`
-}
-
-type ResultUsers struct {
-	Users map[string]User `json:"users"`
-}
-type ResponseProjects struct {
-	Status string         `json:"status"`
-	Result ResultProjects `json:"result"`
-}
-type ResponseUsers struct {
-	Status string      `json:"status"`
-	Result ResultUsers `json:"result"`
-}
 type Currency struct {
 	ID           int     `json:"id"`
 	Code         string  `json:"code"`

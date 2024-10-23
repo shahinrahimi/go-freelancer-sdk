@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type ProjectsCategoriesService struct {
+type ListCategoriesService struct {
 	client                    *Client
 	categories                []int
 	jobDetails                bool
@@ -15,7 +15,19 @@ type ProjectsCategoriesService struct {
 	seoDetails                bool
 }
 
-func (s *ProjectsCategoriesService) Do(ctx context.Context) (*ResponseCategories, error) {
+type ListCategoriesResponse struct {
+	Status    string           `json:"status"`
+	RequestID string           `json:"request_id,omitempty"` // Optional
+	Result    CategoriesResult `json:"result"`
+}
+
+type CategoriesResult struct {
+	Jobs       *Jobs      `json:"jobs,omitempty"` // Jobs can be an object or null, represented by a pointer
+	Categories []Category `json:"categories"`
+}
+
+// Do perform GET request on endpoint "projects/0.1/categories/"
+func (s *ListCategoriesService) Do(ctx context.Context) (*ListCategoriesResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "projects/0.1/categories/",
@@ -39,7 +51,7 @@ func (s *ProjectsCategoriesService) Do(ctx context.Context) (*ResponseCategories
 	if err != nil {
 		return nil, err
 	}
-	res := &ResponseCategories{}
+	res := &ListCategoriesResponse{}
 	err = json.Unmarshal(data, res)
 	if err != nil {
 		return nil, err
@@ -47,27 +59,27 @@ func (s *ProjectsCategoriesService) Do(ctx context.Context) (*ResponseCategories
 	return res, nil
 }
 
-func (s *ProjectsCategoriesService) SetCategories(categories []int) *ProjectsCategoriesService {
+func (s *ListCategoriesService) SetCategories(categories []int) *ListCategoriesService {
 	s.categories = categories
 	return s
 }
 
-func (s *ProjectsCategoriesService) SetJobDetails(jobDetails bool) *ProjectsCategoriesService {
+func (s *ListCategoriesService) SetJobDetails(jobDetails bool) *ListCategoriesService {
 	s.jobDetails = jobDetails
 	return s
 }
 
-func (s *ProjectsCategoriesService) SetLang(lang string) *ProjectsCategoriesService {
+func (s *ListCategoriesService) SetLang(lang string) *ListCategoriesService {
 	s.lang = lang
 	return s
 }
 
-func (s *ProjectsCategoriesService) SetActiveProjectCountDetails(activeProjectCountDetails bool) *ProjectsCategoriesService {
+func (s *ListCategoriesService) SetActiveProjectCountDetails(activeProjectCountDetails bool) *ListCategoriesService {
 	s.activeProjectCountDetails = activeProjectCountDetails
 	return s
 }
 
-func (s *ProjectsCategoriesService) SetSeoDetails(seoDetails bool) *ProjectsCategoriesService {
+func (s *ListCategoriesService) SetSeoDetails(seoDetails bool) *ListCategoriesService {
 	s.seoDetails = seoDetails
 	return s
 }

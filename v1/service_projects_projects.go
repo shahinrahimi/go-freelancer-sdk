@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type ProjectsProjectsService struct {
+type ListProjectsService struct {
 	client                       *Client
 	projects                     []int64
 	owners                       []int64
@@ -73,7 +73,8 @@ type ProjectsProjectsService struct {
 	compact                      bool
 }
 
-func (s *ProjectsProjectsService) Do(ctx context.Context) (*ResponseProjects, error) {
+// Do perform GET request on endpoint "projects/0.1/projects/"
+func (s *ListProjectsService) Do(ctx context.Context) (*ListProjectsResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
 		endpoint: "projects/0.1/projects/",
@@ -103,319 +104,319 @@ func (s *ProjectsProjectsService) Do(ctx context.Context) (*ResponseProjects, er
 	if err != nil {
 		return nil, err
 	}
-	resp := new(ResponseProjects)
-	err = json.Unmarshal(data, resp)
+	res := &ListProjectsResponse{}
+	err = json.Unmarshal(data, res)
 	if err != nil {
 		return nil, err
 	}
 
-	return resp, nil
+	return res, nil
 }
-func (s *ProjectsProjectsService) SetProjects(projects []int64) *ProjectsProjectsService {
+func (s *ListProjectsService) SetProjects(projects []int64) *ListProjectsService {
 	s.projects = projects
 	return s
 }
 
-func (s *ProjectsProjectsService) SetOwners(owners []int64) *ProjectsProjectsService {
+func (s *ListProjectsService) SetOwners(owners []int64) *ListProjectsService {
 	s.owners = owners
 	return s
 }
 
-func (s *ProjectsProjectsService) SetBidders(bidders []int64) *ProjectsProjectsService {
+func (s *ListProjectsService) SetBidders(bidders []int64) *ListProjectsService {
 	s.bidders = bidders
 	return s
 }
 
-func (s *ProjectsProjectsService) SetSeoUrls(seoUrls []string) *ProjectsProjectsService {
+func (s *ListProjectsService) SetSeoUrls(seoUrls []string) *ListProjectsService {
 	s.seoUrls = seoUrls
 	return s
 }
 
-func (s *ProjectsProjectsService) SetFromTime(fromTime int64) *ProjectsProjectsService {
+func (s *ListProjectsService) SetFromTime(fromTime int64) *ListProjectsService {
 	s.fromTime = fromTime
 	return s
 }
 
-func (s *ProjectsProjectsService) SetToTime(toTime int64) *ProjectsProjectsService {
+func (s *ListProjectsService) SetToTime(toTime int64) *ListProjectsService {
 	s.toTime = toTime
 	return s
 }
 
-func (s *ProjectsProjectsService) SetFullDescription(fullDescription bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetFullDescription(fullDescription bool) *ListProjectsService {
 	s.fullDescription = fullDescription
 	return s
 }
 
-func (s *ProjectsProjectsService) SetJobDetails(jobDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetJobDetails(jobDetails bool) *ListProjectsService {
 	s.jobDetails = jobDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUpgradeDetails(upgradeDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUpgradeDetails(upgradeDetails bool) *ListProjectsService {
 	s.upgradeDetails = upgradeDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetAttachmentDetails(attachmentDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetAttachmentDetails(attachmentDetails bool) *ListProjectsService {
 	s.attachmentDetails = attachmentDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetFileDetails(fileDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetFileDetails(fileDetails bool) *ListProjectsService {
 	s.fileDetails = fileDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetQualificationDetails(qualificationDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetQualificationDetails(qualificationDetails bool) *ListProjectsService {
 	s.qualificationDetails = qualificationDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetSelectedBids(selectedBids bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetSelectedBids(selectedBids bool) *ListProjectsService {
 	s.selectedBids = selectedBids
 	return s
 }
 
-func (s *ProjectsProjectsService) SetHireMeDetails(hireMeDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetHireMeDetails(hireMeDetails bool) *ListProjectsService {
 	s.hireMeDetails = hireMeDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserDetails(userDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserDetails(userDetails bool) *ListProjectsService {
 	s.userDetails = userDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetInvitedFreelancerDetails(invitedFreelancerDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetInvitedFreelancerDetails(invitedFreelancerDetails bool) *ListProjectsService {
 	s.invitedFreelancerDetails = invitedFreelancerDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetRecommendedFreelancerDetails(recommendedFreelancerDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetRecommendedFreelancerDetails(recommendedFreelancerDetails bool) *ListProjectsService {
 	s.recommendedFreelancerDetails = recommendedFreelancerDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetSupportSessionDetails(supportSessionDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetSupportSessionDetails(supportSessionDetails bool) *ListProjectsService {
 	s.supportSessionDetails = supportSessionDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetLocationDetails(locationDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetLocationDetails(locationDetails bool) *ListProjectsService {
 	s.locationDetails = locationDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetNdaSignatureDetails(ndaSignatureDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetNdaSignatureDetails(ndaSignatureDetails bool) *ListProjectsService {
 	s.ndaSignatureDetails = ndaSignatureDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetDriveFileDetails(driveFileDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetDriveFileDetails(driveFileDetails bool) *ListProjectsService {
 	s.driveFileDetails = driveFileDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetNdaDetails(ndaDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetNdaDetails(ndaDetails bool) *ListProjectsService {
 	s.ndaDetails = ndaDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetLocalDetails(localDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetLocalDetails(localDetails bool) *ListProjectsService {
 	s.localDetails = localDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetEquipmentDetails(equipmentDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetEquipmentDetails(equipmentDetails bool) *ListProjectsService {
 	s.equipmentDetails = equipmentDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetClientEngagementDetails(clientEngagementDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetClientEngagementDetails(clientEngagementDetails bool) *ListProjectsService {
 	s.clientEngagementDetails = clientEngagementDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserResponsiveness(userResponsiveness bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserResponsiveness(userResponsiveness bool) *ListProjectsService {
 	s.userResponsiveness = userResponsiveness
 	return s
 }
 
-func (s *ProjectsProjectsService) SetServiceOfferingDetails(serviceOfferingDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetServiceOfferingDetails(serviceOfferingDetails bool) *ListProjectsService {
 	s.serviceOfferingDetails = serviceOfferingDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetCorporateUsers(corporateUsers bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetCorporateUsers(corporateUsers bool) *ListProjectsService {
 	s.corporateUsers = corporateUsers
 	return s
 }
 
-func (s *ProjectsProjectsService) SetIsNonHireMe(isNonHireMe bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetIsNonHireMe(isNonHireMe bool) *ListProjectsService {
 	s.isNonHireMe = isNonHireMe
 	return s
 }
 
-func (s *ProjectsProjectsService) SetHasMilestone(hasMilestone bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetHasMilestone(hasMilestone bool) *ListProjectsService {
 	s.hasMilestone = hasMilestone
 	return s
 }
 
-func (s *ProjectsProjectsService) SetTeam(team bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetTeam(team bool) *ListProjectsService {
 	s.team = team
 	return s
 }
 
-func (s *ProjectsProjectsService) SetCompact(compact bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetCompact(compact bool) *ListProjectsService {
 	s.compact = compact
 	return s
 }
 
-func (s *ProjectsProjectsService) SetLimit(limit int) *ProjectsProjectsService {
+func (s *ListProjectsService) SetLimit(limit int) *ListProjectsService {
 	s.limit = limit
 	return s
 }
 
-func (s *ProjectsProjectsService) SetOffset(offset int) *ProjectsProjectsService {
+func (s *ListProjectsService) SetOffset(offset int) *ListProjectsService {
 	s.offset = offset
 	return s
 }
 
-func (s *ProjectsProjectsService) SetFrontendProjectStatuses(frontendProjectStatuses []string) *ProjectsProjectsService {
+func (s *ListProjectsService) SetFrontendProjectStatuses(frontendProjectStatuses []string) *ListProjectsService {
 	s.frontendProjectStatuses = frontendProjectStatuses
 	return s
 }
-func (s *ProjectsProjectsService) SetProximityDetails(proximityDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetProximityDetails(proximityDetails bool) *ListProjectsService {
 	s.proximityDetails = proximityDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetReviewAvailabilityDetails(reviewAvailabilityDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetReviewAvailabilityDetails(reviewAvailabilityDetails bool) *ListProjectsService {
 	s.reviewAvailabilityDetails = reviewAvailabilityDetails
 	return s
 }
-func (s *ProjectsProjectsService) SetNegotiatedDetails(negotiatedDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetNegotiatedDetails(negotiatedDetails bool) *ListProjectsService {
 	s.negotiatedDetails = negotiatedDetails
 	return s
 }
-func (s *ProjectsProjectsService) SetUserAvatar(userAvatar bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserAvatar(userAvatar bool) *ListProjectsService {
 	s.userAvatar = userAvatar
 	return s
 }
-func (s *ProjectsProjectsService) SetUserCountryDetails(userCountryDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserCountryDetails(userCountryDetails bool) *ListProjectsService {
 	s.userCountryDetails = userCountryDetails
 	return s
 }
-func (s *ProjectsProjectsService) SetUserProfileDescription(userProfileDescription bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserProfileDescription(userProfileDescription bool) *ListProjectsService {
 	s.userProfileDescription = userProfileDescription
 	return s
 }
 
-func (s *ProjectsProjectsService) SetProjectCollaborationDetails(projectCollaborationDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetProjectCollaborationDetails(projectCollaborationDetails bool) *ListProjectsService {
 	s.projectCollaborationDetails = projectCollaborationDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserDisplayInfo(userDisplayInfo bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserDisplayInfo(userDisplayInfo bool) *ListProjectsService {
 	s.userDisplayInfo = userDisplayInfo
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserJobs(userJobs bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserJobs(userJobs bool) *ListProjectsService {
 	s.userJobs = userJobs
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserBalanceDetails(userBalanceDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserBalanceDetails(userBalanceDetails bool) *ListProjectsService {
 	s.userBalanceDetails = userBalanceDetails
 	return s
 }
-func (s *ProjectsProjectsService) SetUserQualificationDetails(userQualificationDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserQualificationDetails(userQualificationDetails bool) *ListProjectsService {
 	s.userQualificationDetails = userQualificationDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserMembershipDetails(userMembershipDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserMembershipDetails(userMembershipDetails bool) *ListProjectsService {
 	s.userMembershipDetails = userMembershipDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserFinancialDetails(userFinancialDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserFinancialDetails(userFinancialDetails bool) *ListProjectsService {
 	s.userFinancialDetails = userFinancialDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserLocationDetails(userLocationDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserLocationDetails(userLocationDetails bool) *ListProjectsService {
 	s.userLocationDetails = userLocationDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserPortfolioDetails(userPortfolioDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserPortfolioDetails(userPortfolioDetails bool) *ListProjectsService {
 	s.userPortfolioDetails = userPortfolioDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserPreferredDetails(userPreferredDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserPreferredDetails(userPreferredDetails bool) *ListProjectsService {
 	s.userPreferredDetails = userPreferredDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserBadgeDetails(userBadgeDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserBadgeDetails(userBadgeDetails bool) *ListProjectsService {
 	s.userBadgeDetails = userBadgeDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserStatus(userStatus bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserStatus(userStatus bool) *ListProjectsService {
 	s.userStatus = userStatus
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserReputation(userReputation bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserReputation(userReputation bool) *ListProjectsService {
 	s.userReputation = userReputation
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserEmployerReputation(userEmployerReputation bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserEmployerReputation(userEmployerReputation bool) *ListProjectsService {
 	s.userEmployerReputation = userEmployerReputation
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserEmployerReputationExtra(userEmployerReputationExtra bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserEmployerReputationExtra(userEmployerReputationExtra bool) *ListProjectsService {
 	s.userEmployerReputationExtra = userEmployerReputationExtra
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserCoverImage(userCoverImage bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserCoverImage(userCoverImage bool) *ListProjectsService {
 	s.userCoverImage = userCoverImage
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserPastCoverImage(userPastCoverImage bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserPastCoverImage(userPastCoverImage bool) *ListProjectsService {
 	s.userPastCoverImage = userPastCoverImage
 	return s
 }
 
-func (s *ProjectsProjectsService) SetUserRecommendations(userRecommendations bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetUserRecommendations(userRecommendations bool) *ListProjectsService {
 	s.userRecommendations = userRecommendations
 	return s
 }
 
-func (s *ProjectsProjectsService) SetMarketingMobileNumber(marketingMobileNumber bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetMarketingMobileNumber(marketingMobileNumber bool) *ListProjectsService {
 	s.marketingMobileNumber = marketingMobileNumber
 	return s
 }
 
-func (s *ProjectsProjectsService) SetSanctionDetails(sanctionDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetSanctionDetails(sanctionDetails bool) *ListProjectsService {
 	s.sanctionDetails = sanctionDetails
 	return s
 }
 
-func (s *ProjectsProjectsService) SetLimitedAccount(limitedAccount bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetLimitedAccount(limitedAccount bool) *ListProjectsService {
 	s.limitedAccount = limitedAccount
 	return s
 }
 
-func (s *ProjectsProjectsService) SetEquipmentGroupDetails(equipmentGroupDetails bool) *ProjectsProjectsService {
+func (s *ListProjectsService) SetEquipmentGroupDetails(equipmentGroupDetails bool) *ListProjectsService {
 	s.equipmentGroupDetails = equipmentGroupDetails
 	return s
 }

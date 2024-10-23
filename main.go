@@ -24,10 +24,13 @@ func main() {
 	c.SetBaseUrl(freelancer.BaseAPIMainURL)
 	c.Debug = true
 
-	pas := c.NewProjectsActiveService()
+	pas := c.NewListActiveProjectsService()
 	pas.SetQuery("python json")
 	pas.SetProjectTypes([]freelancer.ProjectType{freelancer.ProjectTypeFixed})
 	pas.SetProjectUpgrades([]freelancer.ProjectUpgradeType{freelancer.ProjectUpgradeTypeSealed})
+	pas.SetFullDescription(true)
+	pas.SetUserCountryDetails(true)
+	pas.SetUserLocationDetails(true)
 	res, err := pas.Do(context.Background())
 	if err != nil {
 		if handledError, ok := err.(*freelancer.APIError2); ok {
@@ -39,7 +42,9 @@ func main() {
 	for pr, p := range res.Result.Projects {
 		log.Printf("Project #%d: %s", pr, p.Title)
 		log.Printf("Project #%d: %s", pr, p.SeoURL)
-		log.Printf("Project #%d: %s", pr, p.Description)
+		//log.Printf("Project #%d: %s", pr, p.Description)
+		log.Printf("Project #%d: %s", pr, p.PreviewDesc)
+		log.Printf("Project #%d: %s", pr, p.Location.City)
 	}
 
 	//log.Printf("Response: %s", res)
