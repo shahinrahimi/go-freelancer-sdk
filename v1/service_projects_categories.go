@@ -30,7 +30,7 @@ type CategoriesResult struct {
 func (s *ListCategoriesService) Do(ctx context.Context) (*ListCategoriesResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "projects/0.1/categories/",
+		endpoint: "/projects/0.1/categories",
 	}
 	if s.categories != nil {
 		r.addParam("categories", s.categories)

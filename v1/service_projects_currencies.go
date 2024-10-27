@@ -27,7 +27,7 @@ type CurrenciesResult struct {
 func (s *ListCurrenciesService) Do(ctx context.Context) (*ListCurrenciesResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "projects/0.1/currencies/",
+		endpoint: "/projects/0.1/currencies",
 	}
 	if s.currencyCodes != nil {
 		r.addParam("currency_codes", s.currencyCodes)

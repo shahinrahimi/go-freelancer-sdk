@@ -77,7 +77,7 @@ type ListProjectsService struct {
 func (s *ListProjectsService) Do(ctx context.Context) (*ListProjectsResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "projects/0.1/projects/",
+		endpoint: "/projects/0.1/projects",
 	}
 	if s.projects != nil {
 		r.addParam("projects", s.projects)

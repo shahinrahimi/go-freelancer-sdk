@@ -8,7 +8,7 @@ import (
 
 type ListUsersService struct {
 	client                        *Client
-	users                         []int64
+	users                         []int
 	usernames                     []string
 	avatar                        bool
 	countryDetails                bool
@@ -49,13 +49,17 @@ type ListUsersService struct {
 func (s *ListUsersService) Do(ctx context.Context) (*ListUsersResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "/users0.1/users",
+		endpoint: "users/0.1/users",
 	}
 	if len(s.users) > 0 {
-		r.setParam("users", s.users)
+		for _, userID := range s.users {
+			r.addParam("users[]", userID)
+		}
 	}
 	if len(s.usernames) > 0 {
-		r.setParam("usernames", s.usernames)
+		for _, username := range s.usernames {
+			r.addParam("usernames[]", username)
+		}
 	}
 	if s.avatar {
 		r.setParam("avatar", s.avatar)
@@ -171,7 +175,7 @@ func (s *ListUsersService) Do(ctx context.Context) (*ListUsersResponse, error) {
 	return res, nil
 }
 
-func (s *ListUsersService) SetUsers(users []int64) *ListUsersService {
+func (s *ListUsersService) SetUsers(users []int) *ListUsersService {
 	s.users = users
 	return s
 }

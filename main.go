@@ -22,7 +22,7 @@ func main() {
 	}
 	c := freelancer.NewClient(token)
 	c.SetBaseUrl(freelancer.BaseAPIMainURL)
-	c.Debug = true
+	c.Debug = false
 
 	pas := c.NewListActiveProjectsService()
 	pas.SetQuery("python json")
@@ -39,14 +39,31 @@ func main() {
 		}
 		log.Printf("Unhandled Error: %s", err)
 	}
+	ownersID := make([]int, 0)
 	for pr, p := range res.Result.Projects {
 		log.Printf("Project #%d: %s", pr, p.Title)
 		log.Printf("Project #%d: %s", pr, p.SeoURL)
 		//log.Printf("Project #%d: %s", pr, p.Description)
 		log.Printf("Project #%d: %s", pr, p.PreviewDesc)
 		log.Printf("Project #%d: %s", pr, p.Location.City)
+		ownersID = append(ownersID, p.OwnerID)
 	}
 
-	//log.Printf("Response: %s", res)
+	us := c.NewListUsersService()
+	us.SetUsers(ownersID)
+	us.SetAvatar(true)
+	res2, err := us.Do(context.Background())
+	if err != nil {
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+		return
+	}
+	for pr, p := range res2.Result.Users {
+		log.Printf("User #%s: %s", pr, p.Username)
+		log.Printf("User #%s: %s", pr, p.Avatar)
+	}
 
 }
