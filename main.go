@@ -40,6 +40,7 @@ func main() {
 		log.Printf("Unhandled Error: %s", err)
 	}
 	ownersID := make([]int, 0)
+	projectsID := make([]int, 0)
 	for pr, p := range res.Result.Projects {
 		log.Printf("Project #%d: %s", pr, p.Title)
 		log.Printf("Project #%d: %s", pr, p.SeoURL)
@@ -47,6 +48,7 @@ func main() {
 		log.Printf("Project #%d: %s", pr, p.PreviewDesc)
 		log.Printf("Project #%d: %s", pr, p.Location.City)
 		ownersID = append(ownersID, p.OwnerID)
+		projectsID = append(projectsID, p.ID)
 	}
 
 	us := c.NewListUsersService()
@@ -77,6 +79,52 @@ func main() {
 	}
 	for pr, p := range res3.Result.Budgets {
 		log.Printf("Budget #%d with minimum: %f and maximum: %f , name: %s and project type: %s", pr, p.Minimum, p.Maximum, p.Name, p.ProjectType)
+	}
+
+	res4, err := c.NewListCountriesService().Do(context.Background())
+	if err != nil {
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+		return
+	}
+	for pr, p := range res4.Result.Countries {
+		log.Printf("Country #%d: %s", pr, p.Name, p.Code)
+	}
+
+	res5, err := c.NewListCategoriesService().Do(context.Background())
+	if err != nil {
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+		return
+	}
+	for pr, p := range res5.Result.Categories {
+		log.Printf("Category #%d: %s", pr, p.Name)
+	}
+
+	ps := c.NewListProjectsService()
+	ps.SetProjects(projectsID)
+	ps.SetLocationDetails(true)
+	ps.SetUserLocationDetails(true)
+	res7, err := ps.Do(context.Background())
+	if err != nil {
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+		return
+	}
+	for pr, p := range res7.Result.Projects {
+		log.Printf("Project #%d: %s", pr, p.Title)
+		log.Printf("Project #%d: %s", pr, p.SeoURL)
+		//log.Printf("Project #%d: %s", pr, p.Description)
+		log.Printf("Project #%d: %s", pr, p.Location.City)
 	}
 
 }

@@ -8,9 +8,9 @@ import (
 
 type ListProjectsService struct {
 	client                       *Client
-	projects                     []int64
-	owners                       []int64
-	bidders                      []int64
+	projects                     []int
+	owners                       []int
+	bidders                      []int
 	seoUrls                      []string
 	fromTime                     int64
 	toTime                       int64
@@ -79,26 +79,26 @@ func (s *ListProjectsService) Do(ctx context.Context) (*ListProjectsResponse, er
 		method:   http.MethodGet,
 		endpoint: "/projects/0.1/projects",
 	}
-	if s.projects != nil {
-		r.addParam("projects", s.projects)
+	for _, project := range s.projects {
+		r.addParam("projects[]", project)
 	}
-	if s.owners != nil {
-		r.addParam("owners", s.owners)
+	for _, owner := range s.owners {
+		r.addParam("owners[]", owner)
 	}
-	if s.bidders != nil {
-		r.addParam("bidders", s.bidders)
+	for _, bidder := range s.bidders {
+		r.addParam("bidders[]", bidder)
 	}
 	if s.seoUrls != nil {
-		r.addParam("seo_urls", s.seoUrls)
+		r.setParam("seo_urls", s.seoUrls)
 	}
 	if s.fromTime != 0 {
-		r.addParam("from_time", s.fromTime)
+		r.setParam("from_time", s.fromTime)
 	}
 	if s.toTime != 0 {
-		r.addParam("to_time", s.toTime)
+		r.setParam("to_time", s.toTime)
 	}
 	if s.frontendProjectStatuses != nil {
-		r.addParam("frontend_project_statuses", s.frontendProjectStatuses)
+		r.setParam("frontend_project_statuses", s.frontendProjectStatuses)
 	}
 	data, err := s.client.callAPI(ctx, r)
 	if err != nil {
@@ -112,17 +112,17 @@ func (s *ListProjectsService) Do(ctx context.Context) (*ListProjectsResponse, er
 
 	return res, nil
 }
-func (s *ListProjectsService) SetProjects(projects []int64) *ListProjectsService {
+func (s *ListProjectsService) SetProjects(projects []int) *ListProjectsService {
 	s.projects = projects
 	return s
 }
 
-func (s *ListProjectsService) SetOwners(owners []int64) *ListProjectsService {
+func (s *ListProjectsService) SetOwners(owners []int) *ListProjectsService {
 	s.owners = owners
 	return s
 }
 
-func (s *ListProjectsService) SetBidders(bidders []int64) *ListProjectsService {
+func (s *ListProjectsService) SetBidders(bidders []int) *ListProjectsService {
 	s.bidders = bidders
 	return s
 }

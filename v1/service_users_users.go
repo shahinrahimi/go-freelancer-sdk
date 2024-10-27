@@ -51,15 +51,11 @@ func (s *ListUsersService) Do(ctx context.Context) (*ListUsersResponse, error) {
 		method:   http.MethodGet,
 		endpoint: "/users/0.1/users",
 	}
-	if len(s.users) > 0 {
-		for _, userID := range s.users {
-			r.addParam("users[]", userID)
-		}
+	for _, userID := range s.users {
+		r.addParam("users[]", userID)
 	}
-	if len(s.usernames) > 0 {
-		for _, username := range s.usernames {
-			r.addParam("usernames[]", username)
-		}
+	for _, username := range s.usernames {
+		r.addParam("usernames[]", username)
 	}
 	if s.avatar {
 		r.setParam("avatar", s.avatar)
