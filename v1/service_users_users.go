@@ -49,7 +49,7 @@ type ListUsersService struct {
 func (s *ListUsersService) Do(ctx context.Context) (*ListUsersResponse, error) {
 	r := &request{
 		method:   http.MethodGet,
-		endpoint: "users/0.1/users",
+		endpoint: "/users/0.1/users",
 	}
 	if len(s.users) > 0 {
 		for _, userID := range s.users {

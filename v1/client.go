@@ -20,8 +20,8 @@ const (
 )
 
 const (
-	BaseAPIMainURL    = "https://www.freelancer.com/api/"
-	BaseAPISandBoxURL = "https://api-sandbox.freelancer.com/"
+	BaseAPIMainURL    = "https://www.freelancer.com/api"
+	BaseAPISandBoxURL = "https://api-sandbox.freelancer.com"
 )
 
 func (c *Client) GetBaseUrl() string {

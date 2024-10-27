@@ -66,4 +66,17 @@ func main() {
 		log.Printf("User #%s: %s", pr, p.Avatar)
 	}
 
+	res3, err := c.NewListBudgetsService().Do(context.Background())
+	if err != nil {
+		if handledError, ok := err.(*freelancer.APIError2); ok {
+			log.Printf("Handled error: %s", handledError)
+			return
+		}
+		log.Printf("Unhandled Error: %s", err)
+		return
+	}
+	for pr, p := range res3.Result.Budgets {
+		log.Printf("Budget #%d with minimum: %f and maximum: %f , name: %s and project type: %s", pr, p.Minimum, p.Maximum, p.Name, p.ProjectType)
+	}
+
 }
